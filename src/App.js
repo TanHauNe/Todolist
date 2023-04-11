@@ -15,7 +15,7 @@ function App() {
     }, []);
 
     const handleSubmit = () => {
-        if (name === "") {
+        if (name.trim() === "") {
             alert("Vui long dien them do");
         } else {
             setList((prev) => {

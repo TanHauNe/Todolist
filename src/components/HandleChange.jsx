@@ -10,35 +10,37 @@ const HandleChange = (props) => {
     }
     return finalList.map((li) => (
         <div className="data wrapper">
-            <li key={li.id}>{li.name}</li>
-            {li.status === "completed" ? (
-                <button
-                    className="btn-xanh"
-                    onClick={() => {
-                        handleChangeStatus(li.id);
-                    }}
-                >
-                    Check
-                </button>
-            ) : (
-                <button
-                    className="btn-xam"
-                    onClick={() => {
-                        handleChangeStatus(li.id);
-                    }}
-                >
-                    Check
-                </button>
-            )}
+            <li className="name-text" key={li.id}>{li.name}</li>
+            <div className="button-main">
+                {li.status === "completed" ? (
+                    <button
+                        className="btn-xanh"
+                        onClick={() => {
+                            handleChangeStatus(li.id);
+                        }}
+                    >
+                        Check
+                    </button>
+                ) : (
+                    <button
+                        className="btn-xam"
+                        onClick={() => {
+                            handleChangeStatus(li.id);
+                        }}
+                    >
+                        Check
+                    </button>
+                )}
 
-            <button
-                className="delete-btn"
-                onClick={() => {
-                    handleDelete(li.id);
-                }}
-            >
-                Delete
-            </button>
+                <button
+                    className="delete-btn"
+                    onClick={() => {
+                        handleDelete(li.id);
+                    }}
+                >
+                    Delete
+                </button>
+            </div>
         </div>
     ));
 };
