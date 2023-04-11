@@ -5,20 +5,20 @@ body {
 }
 
 .wrapper {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 20px;
     padding-top: 50px;
 }
 
 input {
-    width: 50%;
+    width: 60%;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -31,7 +31,7 @@ input {
 
 button {
     position: relative;
-    background-color: yellow;
+    background-color: rgb(197, 197, 8);
     border: none;
     font-size: 28px;
     color: #ffffff;
@@ -76,7 +76,7 @@ img {
 }
 
 .btn-xanh {
-    background-color: greenyellow;
+    background-color: rgb(107, 176, 2);
 }
 
 select {
@@ -95,15 +95,29 @@ select {
 }
 
 .data {
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin: 10px;
+    margin: 10px 0;
+    transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: inset 0 0 0 0 #54b3d6;
+    /* margin-left: 10px; */
+}
+
+.name-text {
+    padding-left: 10px;
+    max-width: 500px;
 }
 
 .data:hover {
-    background-color: aqua;
+    /* background-color: aqua; */
+    box-shadow: 0px 11px 39px rgba(0, 0, 0, 0.07);
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
     cursor: pointer;
+    cursor: pointer;
+    box-shadow: inset 1000px 0 0 0 #195f65;
 }
 
 li {
