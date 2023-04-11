@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
+import HandleChange from "./components/HandleChange";
+import logo from "./img/LOGOTODOLIST.png";
+
 function App() {
     const [name, setName] = useState("");
     const [list, setList] = useState([]);
@@ -57,52 +60,10 @@ function App() {
         setStatus(e.target.value);
     };
 
-    const handleChange = () => {
-        let finalList = [];
-        if (status === "all") {
-            finalList = list;
-        } else if (status === "completed") {
-            finalList = list.filter((li) => li.status === "completed");
-        } else {
-            finalList = list.filter((li) => li.status !== "completed");
-        }
-        return finalList.map((li) => (
-            <div className="data wrapper">
-                <li key={li.id}>{li.name}</li>
-                {li.status === "completed" ? (
-                    <button
-                        className="btn-xanh"
-                        onClick={() => {
-                            handleChangeStatus(li.id);
-                        }}
-                    >
-                        Check
-                    </button>
-                ) : (
-                    <button
-                        className="btn-xam"
-                        onClick={() => {
-                            handleChangeStatus(li.id);
-                        }}
-                    >
-                        Check
-                    </button>
-                )}
-
-                <button
-                    className="delete-btn"
-                    onClick={() => {
-                        handleDelete(li.id);
-                    }}
-                >
-                    Delete
-                </button>
-            </div>
-        ));
-    };
-
     return (
         <div className="App wrapper">
+            <img src={logo} alt="" height={200} width={200} />
+
             <div className="header ">
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
                 <button onClick={handleSubmit}>Add</button>
@@ -112,7 +73,14 @@ function App() {
                     <option value="uncompleted">Uncompleted</option>
                 </select>
             </div>
-            <ul>{handleChange()}</ul>
+            <ul>
+                <HandleChange
+                    status={status}
+                    list={list}
+                    handleChangeStatus={handleChangeStatus}
+                    handleDelete={handleDelete}
+                />
+            </ul>
         </div>
     );
 }
