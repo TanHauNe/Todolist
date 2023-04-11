@@ -1,49 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
-
 function App() {
     const [name, setName] = useState("");
-    const [list, setList] = useState(() => {
-        const storageList = JSON.parse(localStorage.getItem("list"));
-        return storageList;
-    });
+    const [list, setList] = useState([]);
     const [status, setStatus] = useState("all");
-    const [listChange, setListChange] = useState(list);
+
+    useEffect(() => {
+        const storedList = JSON.parse(localStorage.getItem("list"));
+        if (storedList) setList(storedList);
+    }, []);
 
     const handleSubmit = () => {
-        setList((prev) => {
-            const newList = [
-                ...prev,
-                {
-                    name: name,
-                    id: uuidv4(),
-                    status: "completed",
-                },
-            ];
+        if (name === "") {
+            alert("Vui long dien them do");
+        } else {
+            setList((prev) => {
+                const newList = [
+                    ...prev,
+                    {
+                        name: name,
+                        id: uuidv4(),
+                        status: "completed",
+                    },
+                ];
 
-            const jsonList = JSON.stringify(newList);
-            localStorage.setItem("list", jsonList);
-            return newList;
-        });
-        setName("");
+                const jsonList = JSON.stringify(newList);
+                localStorage.setItem("list", jsonList);
+                return newList;
+            });
+            setName("");
+        }
     };
 
     const handleChangeStatus = (id) => {
-        const nameCheck = list.filter((li) => id === li.id);
-
-        if (nameCheck[0].status === "completed") {
-            nameCheck[0].status = "uncompleted";
+        const index = list.findIndex((item) => item.id === id);
+        const _newList = [...list];
+        if (_newList[index].status === "completed") {
+            _newList[index].status = "uncompleted";
         } else {
-            nameCheck[0].status = "completed";
+            _newList[index].status = "completed";
         }
-
-        console.log(nameCheck[0].status);
-        console.log(list);
+        const jsonList = JSON.stringify(_newList);
+        localStorage.setItem("list", jsonList);
+        setList(_newList);
     };
-    // setList("");
+
     const handleDelete = (id) => {
         const newLists = list.filter((li) => id !== li.id);
+        const jsonList = JSON.stringify(newLists);
+        localStorage.setItem("list", jsonList);
         setList(newLists);
     };
 
@@ -51,22 +57,53 @@ function App() {
         setStatus(e.target.value);
     };
 
-    useEffect(() => {
-        setListChange(list);
+    const handleChange = () => {
+        let finalList = [];
         if (status === "all") {
-            setListChange(list);
+            finalList = list;
         } else if (status === "completed") {
-            const finalList = list.filter((li) => li.status === "completed");
-            setListChange(finalList);
+            finalList = list.filter((li) => li.status === "completed");
         } else {
-            const finalList = list.filter((li) => li.status !== "completed");
-            setListChange(finalList);
+            finalList = list.filter((li) => li.status !== "completed");
         }
-    }, [name, list, status]);
+        return finalList.map((li) => (
+            <div className="data wrapper">
+                <li key={li.id}>{li.name}</li>
+                {li.status === "completed" ? (
+                    <button
+                        className="btn-xanh"
+                        onClick={() => {
+                            handleChangeStatus(li.id);
+                        }}
+                    >
+                        Check
+                    </button>
+                ) : (
+                    <button
+                        className="btn-xam"
+                        onClick={() => {
+                            handleChangeStatus(li.id);
+                        }}
+                    >
+                        Check
+                    </button>
+                )}
+
+                <button
+                    className="delete-btn"
+                    onClick={() => {
+                        handleDelete(li.id);
+                    }}
+                >
+                    Delete
+                </button>
+            </div>
+        ));
+    };
 
     return (
-        <div className="App">
-            <div className="header">
+        <div className="App wrapper">
+            <div className="header ">
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
                 <button onClick={handleSubmit}>Add</button>
                 <select name="lists" id="lists" onChange={(e) => handleSelectChange(e)}>
@@ -75,28 +112,7 @@ function App() {
                     <option value="uncompleted">Uncompleted</option>
                 </select>
             </div>
-            <ul>
-                {listChange.map((li) => (
-                    <div className="data">
-                        <li key={li.id}>{li.name}</li>
-                        <button
-                            onClick={() => {
-                                handleChangeStatus(li.id);
-                            }}
-                        >
-                            Check
-                        </button>
-                        <button
-                            className="delete-btn"
-                            onClick={() => {
-                                handleDelete(li.id);
-                            }}
-                        >
-                            Delete
-                        </button>
-                    </div>
-                ))}
-            </ul>
+            <ul>{handleChange()}</ul>
         </div>
     );
 }
