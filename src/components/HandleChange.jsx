@@ -19,7 +19,7 @@ const HandleChange = (props) => {
                             handleChangeStatus(li.id);
                         }}
                     >
-                        Check
+                        Complete
                     </button>
                 ) : (
                     <button
@@ -28,7 +28,7 @@ const HandleChange = (props) => {
                             handleChangeStatus(li.id);
                         }}
                     >
-                        Check
+                        Uncomple
                     </button>
                 )}
 
