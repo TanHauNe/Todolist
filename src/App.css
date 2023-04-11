@@ -1,5 +1,8 @@
 body {
     background-color: rgb(35, 139, 139);
+
+    background-size: 100% 100%;
+
     color: white;
     font-size: 25px;
 }
@@ -65,7 +68,7 @@ button:active:after {
 }
 
 img {
-    border-radius: 50%;
+    border-radius: 30%;
     display: flex;
     justify-content: center;
     margin: 0 auto;
@@ -95,6 +98,7 @@ select {
 }
 
 .data {
+    /* background-color: orangered; */
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -117,7 +121,8 @@ select {
     transition: all 0.3s ease-in-out;
     cursor: pointer;
     cursor: pointer;
-    box-shadow: inset 1000px 0 0 0 #195f65;
+    box-shadow: inset 1000px 0 0 0 rgb(19, 192, 192);
+    color: #113e98;
 }
 
 li {

@@ -24,7 +24,7 @@ function App() {
                     {
                         name: name,
                         id: uuidv4(),
-                        status: "completed",
+                        status: "uncompleted",
                     },
                 ];
 
