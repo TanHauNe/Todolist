@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
-import HandleChange from "./components/HandleChange";
+import Item from "./components/Item";
 import logo from "./img/LOGOTODOLIST.png";
 
 function App() {
@@ -64,17 +64,21 @@ function App() {
         <div className="App wrapper">
             <img src={logo} alt="" height={200} width={200} />
 
-            <div className="header ">
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                <button onClick={handleSubmit}>Add</button>
-                <select name="lists" id="lists" onChange={(e) => handleSelectChange(e)}>
-                    <option value="all">All</option>
-                    <option value="completed">Completed</option>
-                    <option value="uncompleted">Uncompleted</option>
-                </select>
+            <div>
+                <form className="header" onSubmit={handleSubmit}>
+                    <input autoFocus  type="text"  placeholder="Vui long hay nhap vao..." onChange={(e) => setName(e.target.value)} />
+                    <button type="submit">
+                        Add
+                    </button>
+                    <select name="lists" id="lists" onChange={(e) => handleSelectChange(e)}>
+                        <option value="all">All</option>
+                        <option value="completed">Completed</option>
+                        <option value="uncompleted">Uncompleted</option>
+                    </select>
+                </form>
             </div>
             <ul>
-                <HandleChange
+                <Item
                     status={status}
                     list={list}
                     handleChangeStatus={handleChangeStatus}

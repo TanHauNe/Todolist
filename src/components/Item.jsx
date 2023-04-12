@@ -1,4 +1,4 @@
-const HandleChange = (props) => {
+const Item = (props) => {
     const { status, list, handleChangeStatus, handleDelete } = props;
     let finalList = [];
     if (status === "all") {
@@ -10,7 +10,9 @@ const HandleChange = (props) => {
     }
     return finalList.map((li) => (
         <div className="data wrapper">
-            <li className="name-text" key={li.id}>{li.name}</li>
+            <li className="name-text" key={li.id}>
+                {li.name}
+            </li>
             <div className="button-main">
                 {li.status === "completed" ? (
                     <button
@@ -45,4 +47,4 @@ const HandleChange = (props) => {
     ));
 };
 
-export default HandleChange;
+export default Item;
